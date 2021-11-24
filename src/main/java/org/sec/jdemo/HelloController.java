@@ -2,8 +2,6 @@ package org.sec.jdemo;
 
 import com.jfinal.config.*;
 import com.jfinal.core.*;
-import com.jfinal.handler.Handler;
-import com.jfinal.handler.HandlerFactory;
 import org.apache.catalina.Context;
 import org.apache.catalina.core.ApplicationFilterConfig;
 import org.apache.catalina.core.StandardContext;
@@ -12,17 +10,11 @@ import org.apache.tomcat.util.descriptor.web.FilterDef;
 import org.apache.tomcat.util.descriptor.web.FilterMap;
 
 import javax.servlet.DispatcherType;
-import javax.servlet.Filter;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
-import java.util.List;
 
 @Path("/hello")
 public class HelloController extends Controller {
@@ -96,7 +88,6 @@ public class HelloController extends Controller {
     }
 
     public synchronized void deleteFilter(StandardContext standardContext, String filterName) throws Exception {
-        // org.apache.catalina.core.StandardContext#removeFilterDef
         HashMap<String, Object> filterConfig = getFilterConfig(standardContext);
         Object appFilterConfig = filterConfig.get(filterName);
         Field _filterDef = appFilterConfig.getClass().getDeclaredField("filterDef");
